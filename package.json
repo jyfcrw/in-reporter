@@ -1,0 +1,28 @@
+{
+  "name": "in-reporter",
+  "version": "1.0.0",
+  "description": "A reporter bot",
+  "main": "app.js",
+  "keywords": [
+    "bot",
+    "reporter",
+    "ai"
+  ],
+  "author": "jyfcrw",
+  "license": "GPL-2.0",
+  "engines" : {
+    "node" : ">=5.0.0"
+  },
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/jyfcrw/in-reporter.git"
+  },
+  "dependencies": {
+    "botbuilder": "^0.9.2",
+    "restify": "^4.0.4"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-nodemon": "^2.0.6"
+  }
+}

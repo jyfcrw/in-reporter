@@ -1,0 +1,7 @@
+module.exports = {
+    // Microsoft Bot Framework App settings
+    app: {
+        'appId': '',
+        'appSecret': ''
+    }
+}
