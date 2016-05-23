@@ -9,10 +9,10 @@ var middleware = [
     "first_run",
     "load_user"
 ].map(function(name) {
-    return path.join("./middleware/", name + ".js");
+    return path.join("./middlewares/", name + ".js");
 });
 
-var dialog = glob.sync('./dialog/**/*.js');
+var dialog = glob.sync('./dialogs/**/*.js');
 
 // Install middlewares and dialogs
 middleware.concat(dialog).forEach(function(file) {
