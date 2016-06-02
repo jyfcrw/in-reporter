@@ -16,7 +16,7 @@ var dialogs = glob.sync('./dialogs/**/*.js');
 // Middlewares will be loaded in order
 var middlewares = [
     // "logger",
-    "welcome",
+    "launch",
     "authorize"
 ].map(function(name) {
     return path.join("./middlewares/", name + ".js");

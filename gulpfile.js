@@ -14,3 +14,6 @@ gulp.task('start', function () {
     }, config.app)
   });
 });
+
+gulp.task('seed', function () {
+});
