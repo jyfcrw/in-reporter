@@ -7,4 +7,4 @@ var schema = new mongoose.Schema({
   updated_at: { type: Date, default: Date.now }
 });
 
-module.exports = mongoose.model('Question', schema);
+module.exports = mongoose.model('Answer', schema);

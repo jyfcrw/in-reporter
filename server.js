@@ -1,6 +1,9 @@
-var restify = require('restify');
-var mongoose = require('mongoose');
-var bot = require('./bot');
+var restify  = require('restify'),
+    bunyan   = require('bunyan'),
+    mongoose = require('mongoose');
+
+var bot = require('./bot'),
+    server;
 
 mongoose.connect('mongodb://localhost/in-reporter', function(err) {
     if(err) {
@@ -8,7 +11,16 @@ mongoose.connect('mongodb://localhost/in-reporter', function(err) {
     }
 });
 
-var server = restify.createServer();
+server = restify.createServer();
+
+server.on('after', restify.auditLogger({
+    log: bunyan.createLogger({
+        name: 'api',
+        level: 'info'
+    })
+}));
+
+server.use(restify.requestLogger());
 
 server.post('/api/messages', bot.verifyBotFramework(), bot.listen());
 
