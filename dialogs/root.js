@@ -1,9 +1,9 @@
 var builder = require('botbuilder');
 
 module.exports = function(bot) {
-    var dialog = new builder.CommandDialog();
+    var intents = new builder.IntentDialog();
 
-    dialog.matches('^回应', [
+    intents.matches('^回应', [
         function (session) {
             builder.Prompts.text(session, "您想问说什么呢？");
         },
@@ -22,7 +22,7 @@ module.exports = function(bot) {
         builder.DialogAction.send("抱歉，我没能理解您的话。")
     );
 
-    bot.add('/', dialog);
+    bot.dialog('/', intents);
 
     return bot;
 }

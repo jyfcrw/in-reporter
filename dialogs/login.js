@@ -3,7 +3,7 @@ var builder = require('botbuilder');
 module.exports = function(bot) {
     var _s = "首先，我需要通过几个简单的问题来确定您的身份。\r\n\r\n";
 
-    bot.add('/login', [
+    bot.dialog('/login', [
         function (session) {
             builder.Prompts.text(session, _s + "请您告诉我，您的姓名？仅回答全名，如“马云”");
             session.userData.loginData = {};

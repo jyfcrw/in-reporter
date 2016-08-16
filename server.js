@@ -2,7 +2,7 @@ var restify  = require('restify'),
     bunyan   = require('bunyan'),
     mongoose = require('mongoose');
 
-var bot = require('./bot'),
+var connector = require('./bot'),
     server;
 
 mongoose.connect('mongodb://localhost/in-reporter', function(err) {
@@ -22,7 +22,7 @@ server.on('after', restify.auditLogger({
 
 server.use(restify.requestLogger());
 
-server.post('/api/messages', bot.verifyBotFramework(), bot.listen());
+server.post('/api/messages', connector.listen());
 
 function respond(req, res, next) {
   res.send('hello ' + req.params.name);
