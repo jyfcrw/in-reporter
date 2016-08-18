@@ -1,18 +1,24 @@
-var gulp    = require('gulp'),
+const gulp    = require('gulp'),
     nodemon = require('gulp-nodemon'),
-    config  = require('./config');
+    fs = require('fs');
 
 gulp.task('default', function() {
 });
 
 gulp.task('start', function () {
-  nodemon({
-    script: 'server.js',
-    ext: 'js',
-    env: Object.assign({
-        'NODE_ENV': 'development'
-    }, config.app)
-  });
+    nodemon({
+        script: 'server.js',
+        ext: 'js',
+        env: { 'NODE_ENV': 'development' }
+    });
+});
+
+gulp.task('console', function() {
+    nodemon({
+        script: 'console.js',
+        ext: 'js',
+        env: { 'NODE_ENV': 'development' }
+    });
 });
 
 gulp.task('seed', function () {

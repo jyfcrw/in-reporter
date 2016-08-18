@@ -1,16 +1,28 @@
 var restify  = require('restify'),
     bunyan   = require('bunyan'),
-    mongoose = require('mongoose');
+    builder  = require('botbuilder');
 
-var connector = require('./bot'),
-    server;
+var config   = require('./config'),
+    autoload = require('./bot'),
+    database = require('./database');
 
-mongoose.connect('mongodb://localhost/in-reporter', function(err) {
-    if(err) {
-        console.log('connection error', err);
-    }
+var bot, connector, server;
+
+// Create chat bot using botbuilder
+connector = new builder.ChatConnector({
+    appId: config.app.appId,
+    appPassword: config.app.appPassword
 });
 
+bot = new builder.UniversalBot(connector);
+
+// Connect mongodb database
+database.connect();
+
+// Autoload models, dialogs, middlewares
+autoload(bot);
+
+// Create http server
 server = restify.createServer();
 
 server.on('after', restify.auditLogger({
@@ -24,14 +36,12 @@ server.use(restify.requestLogger());
 
 server.post('/api/messages', connector.listen());
 
-function respond(req, res, next) {
-  res.send('hello ' + req.params.name);
+server.get('/ping', function respond(req, res, next) {
+  res.send('alive');
   next();
-}
+});
 
-server.get('/hello/:name', respond);
-server.head('/hello/:name', respond);
-
+// Start listen on port
 server.listen(process.env.port || 3978, function () {
-    console.log('%s listening to %s', server.name, server.url);
+    console.log('<OS> %s listening to %s ...', server.name, server.url);
 });
