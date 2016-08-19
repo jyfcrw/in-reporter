@@ -1,9 +1,12 @@
-module.exports = function(bot) {
+var colors = require('colors');
 
-    bot.use(function (session, next) {
-        console.log("session: " ,session);
-        next();
-    });
-
-    return bot;
+module.exports = function () {
+    return {
+        botbuilder: function (session, next) {
+            console.log(colors.green(`----------- SESSION -----------`));
+            console.log(session);
+            console.log(colors.green(`-------------------------------`));
+            next();
+        }
+    }
 }
