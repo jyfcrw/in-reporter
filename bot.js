@@ -33,7 +33,7 @@ module.exports = function(bot) {
     bot.use(builder.Middleware.sendTyping());
     bot.use(builder.Middleware.firstRun({
         version: 1.0,
-        dialogId: "*:Welcome"
+        dialogId: "/welcome"
     }));
     bot.use(middlewares.logger());
 

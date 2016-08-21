@@ -22,4 +22,5 @@ gulp.task('console', function() {
 });
 
 gulp.task('seed', function () {
+    require("./fixtures/seed").call(this, {});
 });

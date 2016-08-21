@@ -1,0 +1,5 @@
+// Initialize database and default data
+
+module.exports = function(options) {
+    // Create default data
+}
