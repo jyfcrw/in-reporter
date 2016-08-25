@@ -16,5 +16,5 @@ gulp console
 
 ## Lisence
 
-GNU GLP v2.
+GNU GPLv3
 
