@@ -9,7 +9,7 @@
     "ai"
   ],
   "author": "jyfcrw",
-  "license": "GPL-2.0",
+  "license": "GPL-3.0",
   "engines": {
     "node": ">=5.0.0"
   },
@@ -19,7 +19,9 @@
   },
   "dependencies": {
     "botbuilder": "^3.0.0",
+    "botbuilder-wechat-connector": "^1.0.2",
     "bunyan": "^1.8.1",
+    "express": "^4.14.0",
     "lodash": "^4.13.1",
     "mongoose": "^4.4.19",
     "restify": "^4.0.4"

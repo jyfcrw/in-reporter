@@ -21,6 +21,14 @@ gulp.task('console', function() {
     });
 });
 
+gulp.task('wechat', function() {
+    nodemon({
+        script: 'wechat.js',
+        ext: 'js',
+        env: { 'NODE_ENV': 'development' }
+    });
+});
+
 gulp.task('seed', function () {
     require("./fixtures/seed").call(this, {});
 });
