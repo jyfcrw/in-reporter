@@ -1,7 +1,7 @@
 var builder = require('botbuilder');
 
 module.exports = function(bot) {
-    var _s = "首先，我需要通过几个简单的问题来确定您的身份。\r\n\r\n";
+    var _s = "我需要通过几个简单的问题来确定您的身份。";
 
     bot.dialog('/auth', [
         function (session, args, next) {
