@@ -4,7 +4,8 @@ var schema = new mongoose.Schema({
   name: String,
   phone: String,
   sex: String,
-  access_token: String
+  uid: String,
+  accessToken: String
 });
 
 module.exports = mongoose.model('User', schema);

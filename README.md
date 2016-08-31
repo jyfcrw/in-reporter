@@ -14,6 +14,12 @@ $ npm install && gulp start
 gulp console
 ~~~~
 
+## Also, run as Wechat server
+
+~~~~
+gulp wechat
+~~~~
+
 ## Lisence
 
 GNU GPLv3
