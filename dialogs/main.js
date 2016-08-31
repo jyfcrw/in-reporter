@@ -12,8 +12,8 @@ module.exports = function(bot) {
 
 
     bot.dialog('/', [
-        // Authenticate user, register or login for each time
         function (session) {
+            // Authenticate user, register or login for each time
             session.beginDialog("/auth", session.userData.profile);
         },
         function (session, results) {
