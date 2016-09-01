@@ -1,6 +1,8 @@
-var _ = require('lodash'),
+var _       = require('lodash'),
     builder = require('botbuilder');
 
+
+const profileFields = ["name", "phone", "sex"];
 
 module.exports = function(bot) {
 
@@ -45,14 +47,17 @@ module.exports = function(bot) {
                 session.send("我需要通过几个简单的问题来确定您的身份。");
 
                 var userId = _.get(session, ["message", "user", "id"]);
-                User.findOne({ 'uid': userId }, function(err, res) {
-                    if (_isEmpty(res)) {
+                User.findOne({ 'uid': userId }).exec().then(function(user) {
+                    if (_.isEmpty(user)) {
                         session.dialogData.profile = {};
                     } else {
-                        var profileData = {
-                        };
+                        var profileData = _.pick(user, profileFields);
 
                         session.dialogData.profile = profileData;
+
+                        if (_.keys(profileData) == profileFields) {
+                            session.dialogData.userReady = true;
+                        }
                     }
 
                     if (!session.dialogData.profile.name) {
@@ -98,7 +103,10 @@ module.exports = function(bot) {
                 session.dialogData.profile.phone = results.response;
             }
 
-            // update User
+            // create or update user
+            if (!session.dialogData.userReady) {
+                // todo
+            }
 
             session.endDialogWithResult({ response: session.dialogData.profile });
         }
