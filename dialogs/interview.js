@@ -11,15 +11,20 @@ module.exports = function(bot) {
 
             // save as Answer
             session.send(`您的回答是: ${results.response}`);
+            Answer.create({
+                topic:   session.dialogData.lastQuestion.title,
+                content: results.response
+            })
         }
 
         var rank = session.dialogData.interviewRank || 0;
-        if (rank > 10) {
-            session.send("感谢您接受我们的专访");
-            return session.endDialog();
-        }
 
-        var question = Question.findOne({ 'rank': rank }, function(err, res) {
+        Question.findOne({ 'rank': rank }).exec().then(function(question) {
+            if (_.isEmpty(question)) {
+                session.send("感谢您接受我们的专访");
+                return session.endDialog();
+            }
+            session.dialogData.lastQuestion  = question;
             session.dialogData.interviewRank = rank + 1;
             builder.Prompts.text(session, `${res.title}`);
         });
