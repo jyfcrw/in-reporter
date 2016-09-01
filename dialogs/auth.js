@@ -46,8 +46,10 @@ module.exports = function(bot) {
             if (_.isEmpty(args)) {
                 session.send("我需要通过几个简单的问题来确定您的身份。");
 
-                var userId = _.get(session, ["message", "user", "id"]);
-                User.findOne({ 'uid': userId }).exec().then(function(user) {
+                session.dialogData.userId = _.get(session, ["message", "user", "id"]);
+                User.findOne({ 'uid': session.dialogData.userId })
+                    .exec()
+                    .then(function(user) {
                     if (_.isEmpty(user)) {
                         session.dialogData.profile = {};
                     } else {
@@ -105,10 +107,18 @@ module.exports = function(bot) {
 
             // create or update user
             if (!session.dialogData.userReady) {
-                // todo
+                User
+                .findOneAndUpdate(
+                    {uid: session.dialogData.userId},
+                    _.pick(session.dialogData.profile, profileFields),
+                    {upsert: true}
+                ).exec()
+                 .then(function() {
+                    session.endDialogWithResult({ response: session.dialogData.profile });
+                })
+            } else {
+                session.endDialogWithResult({ response: session.dialogData.profile });
             }
-
-            session.endDialogWithResult({ response: session.dialogData.profile });
         }
     ]);
 
