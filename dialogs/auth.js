@@ -11,6 +11,7 @@ module.exports = function(bot) {
             var msg = "请问您的真实姓名？（如：马化腾）",
                 rep = "您的姓名将被用于访谈，请认真填写，您的姓名是？";
 
+            session.send("我需要通过几个简单的问题来确定您的身份。");
             builder.Prompts.text(session, args && args.reprompt ? rep : msg);
         },
         function (session, results) {
@@ -44,8 +45,6 @@ module.exports = function(bot) {
     bot.dialog('/auth', [
         function (session, args, next) {
             if (_.isEmpty(args)) {
-                session.send("我需要通过几个简单的问题来确定您的身份。");
-
                 session.dialogData.userId = _.get(session, ["message", "user", "id"]);
                 User.findOne({ 'uid': session.dialogData.userId })
                     .exec()

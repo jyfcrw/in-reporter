@@ -1,4 +1,5 @@
-var builder = require('botbuilder');
+var _       = require('lodash'),
+    builder = require('botbuilder');
 
 module.exports = function(bot) {
 
@@ -26,7 +27,11 @@ module.exports = function(bot) {
             }
             session.dialogData.lastQuestion  = question;
             session.dialogData.interviewRank = rank + 1;
-            builder.Prompts.text(session, `${res.title}`);
+            builder.Prompts.text(session, `${question.title}`);
+        }).catch(function(err) {
+            console.log("---------------------");
+            console.log(err);
+            console.log("---------------------");
         });
     }));
 
